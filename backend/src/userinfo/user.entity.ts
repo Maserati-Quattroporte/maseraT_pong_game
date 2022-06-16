@@ -3,15 +3,18 @@ import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
-  ManyToOne,
   OneToMany,
 } from "typeorm";
 import { Record } from "src/record/record.entity";
+import { SecondAuthCode } from "src/second-auth/second-auth-code.entity";
 
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  apiId: string;
 
   @Column()
   nickname: string;
@@ -45,4 +48,13 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => Record, (record) => record.user, { eager: true })
   record: Record;
+
+  @OneToMany(
+    (type) => SecondAuthCode,
+    (secondAuthCode) => secondAuthCode.user,
+    {
+      eager: false,
+    },
+  )
+  secondAuthCode: SecondAuthCode;
 }
