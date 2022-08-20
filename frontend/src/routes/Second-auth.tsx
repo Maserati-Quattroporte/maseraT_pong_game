@@ -11,7 +11,7 @@ export function SecondAuth({
   const [code, setCode] = useState("");
 
   const onReSend = () => {
-    fetch("http://localhost:3000/second-auth/", {
+    fetch(process.env.REACT_APP_API_URL + "second-auth", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + getCookie("token")
@@ -20,7 +20,7 @@ export function SecondAuth({
   };
 
   const onCodeCheck = () => {
-    fetch("http://localhost:3000/second-auth/" + code, {
+    fetch(process.env.REACT_APP_API_URL + "second-auth/" + code, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + getCookie("token")

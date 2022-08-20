@@ -84,7 +84,10 @@ export function GameMain() {
               {openLadderModal && (
                 <PopupControl
                   mainText={"래더 매칭"}
-                  onClick={() => setOpenLadderModal(false)}
+                  onClick={() => {
+                    setOpenLadderModal(false);
+                    socket.emit("cancel-match", { userId: getCookie("id") });
+                  }}
                 >
                   <MatchPopup setIsMatching={() => setOpenLadderModal(false)} />
                 </PopupControl>
