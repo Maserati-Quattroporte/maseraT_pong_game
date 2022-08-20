@@ -10,6 +10,7 @@ type Props = {
 export function MatchPopup({ setIsMatching }: Props): JSX.Element {
   const [second, setSecond] = useState(0);
   const onClick = () => {
+    socket.emit("cancel-match", { userId: getCookie("id") });
     setIsMatching(false);
   };
 
@@ -21,7 +22,6 @@ export function MatchPopup({ setIsMatching }: Props): JSX.Element {
     socket.emit("match", { userId: getCookie("id") });
 
     return () => {
-      socket.emit("cancel-match", { userId: getCookie("id") });
       clearInterval(interval);
     };
   }, []);
