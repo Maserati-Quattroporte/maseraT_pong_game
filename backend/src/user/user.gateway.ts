@@ -9,16 +9,13 @@ import { Socket } from "socket.io";
 import { User } from "../user/user.entity";
 import { UserRepository } from "../user/user.repository";
 import { UserListDto } from "././dto/user-list.dto";
-import { ChatParticipant } from "src/chat/entity/chat-participant.entity";
-import { ChatParticipantRepository } from "src/chat/repository/chat-participant.repository";
-import { ChatLeaveDto } from "src/chat/dto/chat-leave.dto";
-import { ChatGateway } from "src/chat/chat.gateway";
 import { GameParticipant } from "src/game/entity/game-participant.entity";
 import { GameRoomRepository } from "src/game/repository/game-room.repository";
 import { GameParticipantRepository } from "src/game/repository/game-participant.repository";
 import { UserState } from "./user-state.enum";
 import { Friend } from "src/friend/friend.entity";
 import { FriendRepository } from "src/friend/friend.repository";
+import { GameGateway } from "src/game/game.gateway";
 
 @WebSocketGateway({
   cors: {
@@ -29,6 +26,9 @@ export class UserGateway {
   constructor(
     private userRepository: UserRepository,
     private friendRepository: FriendRepository,
+    private gameParticipantRepository: GameParticipantRepository,
+    private gameRoomRepository: GameRoomRepository,
+    private gameGateway: GameGateway,
   ) {}
 
   @WebSocketServer()
@@ -77,6 +77,12 @@ export class UserGateway {
 
     user.state = UserState.DISCONNECT;
     await user.save();
+
+    const readyLadder: GameParticipant =
+      await this.gameParticipantRepository.findOne({ where: { user } });
+    if (readyLadder) {
+      this.gameGateway.handleCancelMatch(socket, { userId: user.id });
+    }
 
     this.server.emit("change-state", {
       userId: user.id,

@@ -12,6 +12,7 @@ import { RecordRepository } from "src/record/record.repository";
 import { ChatModule } from "src/chat/chat.module";
 import { UserGateway } from "./user.gateway";
 import { ChatRoomRepository } from "src/chat/repository/chat-room.repository";
+import { GameModule } from "src/game/game.module";
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ChatRoomRepository } from "src/chat/repository/chat-room.repository";
       RecordRepository,
     ]),
     ChatModule,
+    GameModule,
   ],
   controllers: [UserController],
   providers: [UserService, UserGateway],

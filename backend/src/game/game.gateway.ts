@@ -267,6 +267,13 @@ export class GameGateway {
     const ladderGameRoom: GameRoom = await this.gameRoomRepository.findOne({
       where: { isLadder: true, isStart: false },
     });
+
+    const existUser: GameParticipant =
+      await this.gameParticipantRepository.findOne({
+        where: { user: readyUser },
+      });
+    if (existUser) return;
+
     let isCreate: Boolean = false;
 
     const ladderGameJoinDto: GameJoinDto = {

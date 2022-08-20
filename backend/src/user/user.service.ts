@@ -106,10 +106,10 @@ export class UserService {
       }
       user.profileImg = updateUserInfoDto.profileImg;
     }
-    if (updateUserInfoDto.secondAuth !== undefined) {
-      if (updateUserInfoDto.secondAuth) user.secondAuth = true;
-      else user.secondAuth = false;
-    }
+
+    if (updateUserInfoDto.secondAuth === "true") user.secondAuth = true;
+    else user.secondAuth = false;
+
     try {
       await user.save();
       if (updateUserInfoDto.nickname) this.userGateway.nicknameChange(user);

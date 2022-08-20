@@ -112,7 +112,7 @@ export class ChatGateway {
     if (chatSettingDto.password) {
       const salt = await bcrypt.genSalt();
       chatRoom.password = await bcrypt.hash(chatSettingDto.password, salt);
-    }
+    } else chatRoom.password = "";
 
     await chatRoom.save();
 

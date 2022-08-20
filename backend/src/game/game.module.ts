@@ -19,5 +19,6 @@ import { UserRepository } from "src/user/user.repository";
   ],
   providers: [GameGateway, GameService],
   controllers: [GameController],
+  exports: [GameGateway],
 })
 export class GameModule {}
