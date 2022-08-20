@@ -8,7 +8,7 @@ export function GameCreatePopup(): JSX.Element {
   const [check, setCheck] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    if (e.target.value.length < 13) setTitle(e.target.value);
   };
 
   const onClick = () => {
