@@ -34,13 +34,6 @@ export function DM() {
       });
 
     socket.emit("DM", { senderId: getCookie("id"), targetId });
-
-    return () => {
-      socket.emit("chat-room-leave", {
-        chatRoomId,
-        userId: localStorage.getItem("id")
-      });
-    };
   }, [chatRoomId, targetId]);
 
   useEffect(() => {
@@ -67,6 +60,13 @@ export function DM() {
       });
     }
     setMessage("");
+  };
+
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onClick();
+      setMessage("");
+    }
   };
 
   return (
@@ -105,6 +105,7 @@ export function DM() {
                   value={message}
                   type="text"
                   className="w-[85%] border-main border-2 rounded px-2 py-1 text-sm font-main"
+                  onKeyPress={onEnter}
                 />
                 <div>
                   <Button
