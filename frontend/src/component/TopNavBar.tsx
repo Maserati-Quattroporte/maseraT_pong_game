@@ -37,7 +37,7 @@ function TopBar({ children }: IProp) {
     firstLose: false,
     firstWin: false,
     consecThree: false,
-    thiredWin: false
+    thirdWin: false
   });
 
   useEffect(() => {
@@ -132,7 +132,7 @@ function TopBar({ children }: IProp) {
                         {achievement.firstWin ? (
                           <AchievementImg alt={"첫승"} src={FirstWin} />
                         ) : null}
-                        {achievement.thiredWin ? (
+                        {achievement.thirdWin ? (
                           <AchievementImg alt={"3승"} src={ThirdWin} />
                         ) : null}
                         {achievement.firstLose ? (
