@@ -18,7 +18,7 @@ export function MyProfilePopup(): JSX.Element {
     firstLogin: false,
     firstWin: false,
     firstLose: false,
-    thiredWin: false,
+    thirdWin: false,
     consecThree: false
   });
 
@@ -64,10 +64,10 @@ export function MyProfilePopup(): JSX.Element {
             {achievement.firstWin ? (
               <AchievementImg alt={"첫승"} src={FirstWin} className="mr-2" />
             ) : null}
-            {achievement.firstLose ? (
+            {achievement.thirdWin ? (
               <AchievementImg alt={"3승"} src={ThirdWin} className="mr-2" />
             ) : null}
-            {achievement.thiredWin ? (
+            {achievement.firstLose ? (
               <AchievementImg alt={"첫패"} src={FirstLose} className="mr-2" />
             ) : null}
             {achievement.consecThree ? (

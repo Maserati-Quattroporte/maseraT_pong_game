@@ -197,6 +197,13 @@ export function ChatDetail(): JSX.Element {
     setMessage(e.target.value);
   };
 
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onClick();
+      setMessage("");
+    }
+  };
+
   return (
     <div className="h-full flex flex-col">
       <TopBar>
@@ -235,6 +242,7 @@ export function ChatDetail(): JSX.Element {
                   className="w-[85%] border-main border-2 rounded px-2 py-1 text-sm font-main"
                   onChange={onChange}
                   value={message}
+                  onKeyPress={onEnter}
                 />
                 <div>
                   <Button
