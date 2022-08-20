@@ -13,7 +13,7 @@ export function Login() {
 
   const [imgUrl, setImgUrl] = useState("");
   const [btnEnable, setBtnEnable] = useState(false);
-  const [checkMsg, setCheckMsg] = useState("닉네임 중복 체크를 해주세요");
+  const [checkMsg, setCheckMsg] = useState("");
 
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
@@ -26,12 +26,19 @@ export function Login() {
       }
     })
       .then(res => res.json())
-      .then(json => {
-        setNickname(json.nickname);
-        setImgUrl(process.env.REACT_APP_API_URL + json.profileImg);
-        setIsSecondAuth(json.secondAuth);
-        setEmail(json.email);
-      });
+      .then(
+        (json: {
+          nickname: string;
+          profileImg: string;
+          secondAuth: boolean;
+          email: string;
+        }) => {
+          setNickname(json.nickname);
+          setImgUrl(process.env.REACT_APP_API_URL + json.profileImg);
+          setIsSecondAuth(json.secondAuth);
+          setEmail(json.email);
+        }
+      );
   }, []);
 
   const imageInput = useRef<HTMLInputElement>(null);
@@ -48,6 +55,7 @@ export function Login() {
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckMsg("닉네임 중복 체크를 해주세요");
     setNickname(e.target.value);
   };
 
@@ -74,7 +82,7 @@ export function Login() {
     const data = new FormData();
     data.append("profile", profile);
     data.append("nickname", nickname);
-    data.append("secondAuth", isSecondAuth + "");
+    data.append("secondAuth", isSecondAuth);
 
     fetch(process.env.REACT_APP_API_URL + "user/info", {
       method: "PATCH",
@@ -101,6 +109,7 @@ export function Login() {
             style={{ display: "none" }}
             ref={imageInput}
             onChange={onFileChange}
+            accept={"image/png, image/jpeg"}
           />
         </div>
         <div>
