@@ -26,6 +26,8 @@ import { ChatAuthorityDto } from "./dto/chat-authority.dto";
 import { Block } from "src/block/block.entity";
 import { BlockRepository } from "src/block/block.repository";
 import { DMRepository } from "./repository/dm.repository";
+import { Ban } from "./entity/ban.entity";
+import { BanRepository } from "./repository/ban.repository";
 
 @WebSocketGateway({
   cors: {
@@ -39,6 +41,7 @@ export class ChatGateway {
     private userRepository: UserRepository,
     private blockRepository: BlockRepository,
     private dmRepository: DMRepository,
+    private banRepository: BanRepository,
   ) {}
 
   @WebSocketServer()
@@ -65,6 +68,11 @@ export class ChatGateway {
       chatJoinDto.chatRoomId,
     );
     if (!chatRoom) return;
+
+    const isBan: Ban = await this.banRepository.findOne({
+      where: { user, chatRoom },
+    });
+    if (isBan) return;
 
     const joinUser: ChatParticipant =
       await this.chatParticipantsRepository.findOne({
@@ -348,5 +356,18 @@ export class ChatGateway {
     socket.join("chat-" + chatRoom.id);
     this.server.in(target.socketId).socketsJoin("chat-" + chatRoom.id);
     socket.emit("DM", { chatRoomId: chatRoom.id, targetId });
+  }
+
+  @SubscribeMessage("chat-room-ban")
+  async handleChatRoomBan(
+    @ConnectedSocket() socket: Socket,
+    @MessageBody() { targetId, chatRoomId },
+  ) {
+    const user: User = await this.userRepository.findOne(targetId);
+    const chatRoom: ChatRoom = await this.chatRoomRepository.findOne(
+      chatRoomId,
+    );
+    Ban.create({ user, chatRoom }).save();
+    this.handleChatRoomKick(socket, { targetId, chatRoomId });
   }
 }

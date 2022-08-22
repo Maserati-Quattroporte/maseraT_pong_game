@@ -17,9 +17,13 @@ export class GameParticipant extends BaseEntity {
   @Column({ default: GamePosition.spectator })
   position: GamePosition;
 
-  @ManyToOne((type) => User, (user) => user.gameParticipant)
+  @ManyToOne((type) => User, (user) => user.gameParticipant, {
+    onDelete: "CASCADE",
+  })
   user: User;
 
-  @ManyToOne((type) => GameRoom, (gameRoom) => gameRoom.gameParticipant)
+  @ManyToOne((type) => GameRoom, (gameRoom) => gameRoom.gameParticipant, {
+    onDelete: "CASCADE",
+  })
   gameRoom: GameRoom;
 }

@@ -16,6 +16,7 @@ import { ChatParticipant } from "src/chat/entity/chat-participant.entity";
 import { Achievement } from "src/achievement/achievement.entity";
 import { GameParticipant } from "src/game/entity/game-participant.entity";
 import { DM } from "src/chat/entity/dm.entity";
+import { Ban } from "src/chat/entity/ban.entity";
 
 @Entity()
 @Unique(["nickname"])
@@ -110,4 +111,7 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => DM, (dm) => dm.sender)
   dm: DM[];
+
+  @OneToMany((type) => Ban, (ban) => ban.user)
+  ban: Ban[];
 }

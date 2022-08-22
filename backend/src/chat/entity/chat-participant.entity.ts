@@ -17,7 +17,9 @@ export class ChatParticipant extends BaseEntity {
   @Column({ default: Authority.PARTICIPANT })
   authority: Authority;
 
-  @ManyToOne((type) => User, (user) => user.chatParticipant)
+  @ManyToOne((type) => User, (user) => user.chatParticipant, {
+    onDelete: "CASCADE",
+  })
   user: User;
 
   @ManyToOne(
@@ -25,6 +27,7 @@ export class ChatParticipant extends BaseEntity {
     (chatRoom) => {
       chatRoom.chatParticipant;
     },
+    { onDelete: "CASCADE" },
   )
   chatRoom: ChatRoom;
 

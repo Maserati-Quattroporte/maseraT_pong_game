@@ -21,9 +21,9 @@ export class Record extends BaseEntity {
   @Column()
   gameWin: boolean;
 
-  @ManyToOne((type) => User, (user) => user.record)
+  @ManyToOne((type) => User, (user) => user.record, { onDelete: "CASCADE" })
   user: User;
 
-  @ManyToOne((type) => User, (user) => user.record)
+  @ManyToOne((type) => User, (user) => user.record, { onDelete: "CASCADE" })
   enemy: User;
 }

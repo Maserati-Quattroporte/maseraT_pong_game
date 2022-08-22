@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { ChatParticipant } from "./chat-participant.entity";
 import { DM } from "./dm.entity";
+import { Ban } from "src/chat/entity/ban.entity";
 
 @Entity()
 export class ChatRoom extends BaseEntity {
@@ -30,4 +31,7 @@ export class ChatRoom extends BaseEntity {
 
   @OneToMany((type) => DM, (dm) => dm.chatRoom)
   dm: DM[];
+
+  @OneToMany((type) => Ban, (ban) => ban.chatRoom)
+  ban: Ban[];
 }

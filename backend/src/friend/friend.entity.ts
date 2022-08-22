@@ -6,9 +6,9 @@ export class Friend extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => User, (user) => user.friend)
+  @ManyToOne((type) => User, (user) => user.friend, { onDelete: "CASCADE" })
   ownId: User;
 
-  @ManyToOne((type) => User, (user) => user.friend)
+  @ManyToOne((type) => User, (user) => user.friend, { onDelete: "CASCADE" })
   friendId: User;
 }

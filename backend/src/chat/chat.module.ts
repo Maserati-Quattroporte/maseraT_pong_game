@@ -8,6 +8,7 @@ import { ChatService } from "./chat.service";
 import { UserRepository } from "src/user/user.repository";
 import { BlockRepository } from "src/block/block.repository";
 import { DMRepository } from "./repository/dm.repository";
+import { BanRepository } from "./repository/ban.repository";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { DMRepository } from "./repository/dm.repository";
       UserRepository,
       BlockRepository,
       DMRepository,
+      BanRepository,
     ]),
   ],
   providers: [ChatGateway, ChatService],

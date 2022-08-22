@@ -18,10 +18,11 @@ export class DM extends BaseEntity {
     (chatRoom) => {
       chatRoom.dm;
     },
+    { onDelete: "CASCADE" },
   )
   chatRoom: ChatRoom;
 
-  @ManyToOne((type) => User, (user) => user.dm)
+  @ManyToOne((type) => User, (user) => user.dm, { onDelete: "CASCADE" })
   sender: User;
 
   @Column({ default: "" })

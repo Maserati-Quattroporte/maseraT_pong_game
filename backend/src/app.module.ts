@@ -26,6 +26,7 @@ import { ChatRoom } from "./chat/entity/chat-room.entity";
 import { Block } from "./block/block.entity";
 import { Achievement } from "./achievement/achievement.entity";
 import { DM } from "./chat/entity/dm.entity";
+import { Ban } from "./chat/entity/ban.entity";
 
 @Module({
   imports: [
@@ -51,8 +52,6 @@ import { DM } from "./chat/entity/dm.entity";
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== "prod",
       entities: [
-        // __dirname + "/../**/*.entity.{js, ts}",
-        // __dirname + "/../**/entity/*.entity.{js, ts}",
         User,
         SecondAuthCode,
         Record,
@@ -64,7 +63,8 @@ import { DM } from "./chat/entity/dm.entity";
         Block,
         Achievement,
         DM,
-      ], // Entity 그대로 넣으면 빠른데 dir로 주면 느려짐 ㄱㅊ?
+        Ban,
+      ],
     }),
     UserModule,
     SecondAuthModule,
