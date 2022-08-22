@@ -144,7 +144,6 @@ export function GameDetail(): JSX.Element {
     <div className="h-full flex flex-col">
       <TopBar>
         <div className="content flex-col">
-          <h1>game room {gameRoomId}</h1>
           <h2>{title}</h2>
           <div className="flex">
             {gameUsers.length ? (

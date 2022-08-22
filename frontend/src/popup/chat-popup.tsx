@@ -45,6 +45,15 @@ export function ChatPopup({ user, setIsOpen }: userProps): JSX.Element {
     });
     setIsOpen(false);
   };
+
+  const onBan = () => {
+    socket.emit("chat-room-ban", {
+      targetId: id,
+      chatRoomId
+    });
+    setIsOpen(false);
+  };
+
   const style = "w-[100px] btn-sm my-1";
 
   const onChatBlock = () => {
@@ -81,12 +90,17 @@ export function ChatPopup({ user, setIsOpen }: userProps): JSX.Element {
           ) : null}
           {myAuthority &&
           +myAuthority >= Authority.ADMIN &&
-          +myAuthority >= authority ? (
+          +myAuthority > authority ? (
             <Button className={style} tag={"강퇴"} onClick={onKick} />
           ) : null}
           {myAuthority &&
           +myAuthority >= Authority.ADMIN &&
-          +myAuthority >= authority ? (
+          +myAuthority > authority ? (
+            <Button className={style} tag={"입장 금지"} onClick={onBan} />
+          ) : null}
+          {myAuthority &&
+          +myAuthority >= Authority.ADMIN &&
+          +myAuthority > authority ? (
             <Button className={style} tag={"채팅 금지"} onClick={onChatBlock} />
           ) : null}
           <Button
