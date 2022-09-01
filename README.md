@@ -9,7 +9,7 @@ This project is about creating a website for the mighty Pong contest!
 ```bash
 git clone https://github.com/Maserati-Quattroporte/maseraT_pong_game.git
 
-# put .env in root directory, backend and frontend directory
+# put .env file in root directory, backend and frontend directory
 
 docker-compose up --build
 ```
@@ -21,7 +21,7 @@ docker-compose up --build
 ### 1. Login
 - Login to 42API
 - Two-factor authentication using email
-- Show match history: level, authority, 
+- Show match history: level, authority, etc
 
 ### 2. Chat
 - Create channels(char rooms) can be either public or private(DM), or protected by a password
